@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Digital Campus{% endblock %}
+{% block content %}
+
+
+<style>
+    
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+
+    {% comment %} .head_text{
+    color: white;
+  } {% endcomment %}
+    .card{
+    box-shadow: 0 16px 48px #E3E7EB;
+}
+</style>
+
+            <div class="container">
+                <div class="row">
+
+               
+      
+              <!-- Blog Entries Column -->
+              <div class="col-md-10 mt-3 left">
+              
+                    {% for post in post_list %}
+                <div class="card mb-4" >
+                  <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+
+                    <p class="card-text">{{post.content|slice:":200"|safe }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                  </div>
+                 
+                </div>
+                {% endfor %}
+            </div>
+            {% comment %} {% block sidebar %}
+                {% include 'sidebar.html' %}
+                {% endblock sidebar %}  {% endcomment %}
+            </div>
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Digital Campus | Product {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <ul class="list-group">
+                <li class="list-group-item active bg-secondary border-0"><a style="text-decoration:none; color:white;" href="/store">All Category</a></li>
+            	{% for category in categories %}
+                <li class="list-group-item"><a style="text-decoration:none; color:black;" href="?category_id={{ category.id }}">{{ category.name }}</a></li>
+				{% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-10">
+            	{% if product  %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}"  width="250px" alt="{{ product.name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div>
+                                        <h1 class="font-weight-light"><strong>Notes Name: </strong> {{ product.name }}</h1>
+                                        <hr style="border: none; border-bottom: 1px solid black;">
+                                        <h4 class="font-weight-light"><strong>Price: </strong> {{ product.price }}</h4>
+                                          <hr style="border: none; border-bottom: 1px solid black;">
+                                        <p class="mt-2"><strong>Teacher Name: </strong> {{ product.Teacher }}</p>
+                                         <hr style="border: none; border-bottom: 1px solid black;">
+
+
+                                          <p class="mt-2"><strong> Added By: </strong> {{ product.student }}</p>
+                                         <hr style="border: none; border-bottom: 1px solid black;">
+
+
+
+                                         <p class="mt-2"><strong>Semester: </strong> {{ product.semester }}</p>
+                                         <hr style="border: none; border-bottom: 1px solid black;">
+                                         <p class="mt-2"><strong>category: </strong> {{ product.category}}</p>
+                                       <hr style="border: none; border-bottom: 1px solid black;">
+                                        <p class="mt-2"><strong>Description: </strong> {{ product.Description }}</p>
+                                         <hr style="border: none; border-bottom: 1px solid black;">
+                                        <p class="mt-2"><strong>Is Available ?: </strong> {{ product.is_Available }}</p>
+                                        <hr style="border: none; border-bottom: 1px solid black;">
+                                         <p class="mt-2"><strong>User - Phone: </strong> {{ product.phone_number}}</p>
+                                        <hr style="border: none; border-bottom: 1px solid black;">
+                            
+                                        <p class="mt-2"><strong>Added Date: </strong> {{ product.date }}</p>
+                                       <hr style="border: none; border-bottom: 1px solid black;">
+                                          {% if product.fileupload %}
+                                         <p class="mt-2"><strong>download File:   <a href="{{product.fileupload.url}}" download >{{product.fileupload}}</a></p>
+                                         {% endif %}
+
+                                       
+                                     <hr style="border: none; border-bottom: 1px solid black;">
+                                       
+                                         <form action="#{{ product.id }}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ product.id }}" name="product">
+                                            {% if product|is_in_cart:request.session.cart %}
+                                            <a class="btn btn-warning" href="cart">Go to cart </a>
+                                            {% else %}
+                                            <input class="btn btn-primary" type="submit" value="Add to cart">
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

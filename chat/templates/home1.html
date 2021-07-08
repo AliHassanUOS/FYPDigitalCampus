@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Digital Campus{% endblock %}
+{% block content %}
+<style>
+{% comment %} body {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+} {% endcomment %}
+
+:root {
+	--dark-color-a: #808080;
+	--dark-color-b: #f1f1f1;
+	--light-color: #e6e9ff;
+	--success-color: #5cb85c;
+	--error-color: #d9534f;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+.join-header {
+	text-align: center;
+	padding: 20px;
+	background: var(--dark-color-a);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.align
+{
+border: 2px solid #dedede;
+  background-color:#f1f1f1;
+  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  margin-Top: 70px;
+  margin-left: 90px;
+  max-width: 400px;
+  color: #696969;
+  font-family: "Times New Roman", Times, serif;
+  justify-content: space-between;
+}
+#bg{
+    background-size: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+}
+</style>
+</head>
+{% load static %}
+<body id="bg" style="background-image: url('{% static '/images/booki.jpg'%}')";>
+<div>
+{% comment %} <div align="center">
+    <h2>Ali Hassan Chat</h2>
+  <li class="nav-item">
+      <a class="nav-link" href="/store">Add Notes</a>
+                </li>
+</div> {% endcomment %}
+
+
+<div class="container">
+    <div class="row">
+
+               
+      
+              <!-- Blog Entries Column -->
+   <div class="col-md-10 mt-3 left">
+    <style>
+    input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+    background-color: #45a049;
+    }
+
+    {% comment %} div {
+    border-radius: 5px;
+    background-color: #7386ff;
+    padding: 20px;
+    }  {% endcomment %}
+    </style>
+       <div class="align">
+    <form id="post-form" method="POST" action="checkview">
+    <header class="join-header">
+				<h1 style="color:White;">&#x1F60A;<b>Chat Box<b></h1>
+			</header>
+        {% csrf_token %}
+        <label>Room Name</label>
+        <input type="text" name="room_name" id="room_name" placeholder="Enter Room..."width="100px" />
+        <label>Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter UserName..." width="100px" />
+        <input type="submit" value="Join Chat">
+    </form>
+           </div>
+</div>
+</div>
+</div>
+</body>
+
+{% endblock %}

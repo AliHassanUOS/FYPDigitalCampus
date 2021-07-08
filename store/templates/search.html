@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} Digital Campus | Search {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row product-row mx-auto mb-2">
+                {% if allproduct|length == 0 %}
+                <div class="alert alert-warning col-12">
+                   
+                        <p>No search results</p>
+                          Your search query : <b>{{query}}</b> did not match any documents. <br>
+                           Suggestions:
+                             <ul>
+                            <li>Make sure that all words are spelled correctly.</li>
+                             <li>Try more general keywords.</li>
+                              <li> Try fewer keywords.</li>
+                             <li> Try different keywords.</li>
+                            </li>
+                            </ul>
+                 
+                </div>
+               {% elif allproduct|length > 0 %}
+                    {% for product in allproduct %}
+                    <div id="{{ product.id }}" class="col-md-4 mb-4">
+                        <div class="card product-card mb-2">
+                            <img class="card-img-top" src="{{ product.image.url }}"  alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-title">Name : {{ product.name}}</p>
+                                <p class="card-text">Price : {{ product.price }}</p>
+                                <p class="card-text">Teacher : {{ product.Teacher }}</p>
+                                <form action="/#{{ product.id }}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ product.id }}" name="product">
+                                    {% if product|is_in_cart:request.session.cart %}
+                                    <a class="btn btn-warning" href="/cart">Go to cart </a>
+                                    {% else %}
+                                    <input class="btn btn-primary" type="submit" value="Add to cart">
+                                    {% endif %}
+                                    <a class="btn btn-success" href="/?id={{ product.id }}">View</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
